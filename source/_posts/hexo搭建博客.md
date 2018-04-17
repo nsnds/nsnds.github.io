@@ -162,10 +162,10 @@ avatar: /img/header.JPG
 8.[不同电脑利用分支进行管理博客的同步和上传](https://www.zhihu.com/question/21193762)
 
 创建新分支(hexo分支)
-![创建hexo分支](2018-3-19-009)
+![创建hexo分支](2018-3-19-009.png)
 
 设置hexo为默认分支
-![设置hexo为默认分支](2018-3-19-010)
+![设置hexo为默认分支](2018-3-19-010.png)
 
 本地_config.yml配置deploy为master
 
