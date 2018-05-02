@@ -7,8 +7,12 @@ tags: npm
 ### ~ or ^
 
 ~会匹配最近的小版本依赖包，如~1.2.3匹配所有1.2.x
+
 ^会匹配最新的大版本依赖包，如^1.2.3匹配所有1.x.x
-既没有<font color="red">~</font>也没有<font color="red">^</font>的情况属于精准安装模块指定版本号，如：```"moment": "2.4.0"```。对应命令：```npm i --save-exact moment@2.4.0```
+
+既没有<font color="red">~</font>也没有<font color="red">^</font>的情况属于精准安装模块指定版本号，如："moment": "2.4.0"。对应命令：npm i --save-exact moment@2.4.0
+
+<!-- more -->
 
 ### package-lock.json
 
@@ -19,7 +23,7 @@ npm V5以上版本会有一个package.json文件，它记录安装模块的细�
 
 ### npm config
 
-查看和管理npm的基础配置。```npm config ls -l```
+查看和管理npm的基础配置：npm config ls -l
 
 ```
 # 查看是否设置了npm的代理
@@ -50,21 +54,21 @@ npm config get proxy
 
 ### dependencies or devDependencies or optionalDependencies
 
-1. dependencies：生产环境的依赖包目录
+* dependencies：生产环境的依赖包目录
 
-使用```npm i --save moduel```命令安装的模块会注册到package.json中的dependencies。
+使用npm i --save moduel命令安装的模块会注册到package.json中的dependencies。
 
 而<font color="red">npm V5</font>开始不加--save也会把模块注册到dependencies中。
 
-在生产环境只需要安装dependencies中的依赖时，执行```npm i -- production```即可。若配置了NODE_ENV环境变量为production，那么```npm i 只会安装dependencies中的依赖```。
+在生产环境只需要安装dependencies中的依赖时，执行npm i -- production即可。若配置了NODE_ENV环境变量为production，那么npm i 只会安装dependencies中的依赖。
 
-2. devDependencies：开发环境的依赖包目录
+* devDependencies：开发环境的依赖包目录
 
-使用```npm i --dev moduel```命令安装的模块会注册到package.json中的devDependencies。
+使用npm i --dev moduel命令安装的模块会注册到package.json中的devDependencies。
 
-3. optionalDependencies：可选依赖包目录
+* optionalDependencies：可选依赖包目录
 
-使用```npm i --save-optional module```安装的模块会注册到optionalDependencies中。
+使用npm i --save-optional module安装的模块会注册到optionalDependencies中。
 
 使用npm i --no-optional可以跳过可选包的安装。若有lock时，需要使用npm i --no-optional --no-package-lock才能跳过。
 
@@ -114,7 +118,7 @@ npm config set prefix "D:\program Files\npm-global"
 
 ### 更新本地包
 
-获取更新包的信息：```npm outdated```
+获取更新包的信息：npm outdated
 
 更新全部：npm update
 
