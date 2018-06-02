@@ -4,7 +4,7 @@ date: 2018-03-19 21:42:51
 tags: hexo
 ---
 
-##### 1.配置环境
+### 1.配置环境
 
 node：8.10.0
 npm：5.7.1
@@ -12,7 +12,7 @@ hexo: 3.6.0
 
 <!-- more -->
 
-##### 2.github上创建项目
+### 2.github上创建项目
 
 > 创建一个仓库
 ![创建一个仓库](2018-3-19-001.png)
@@ -26,7 +26,7 @@ hexo: 3.6.0
 > 下图表示成功开启
 ![Github Pages中显示your site is published at https://nsnds.github.io/表示成功开启](2018-3-19-004.png)
 
-##### 3.创建本地博客
+### 3.创建本地博客
 
 新建blog文件夹(文件名随便取)
 进入blog文件夹
@@ -34,7 +34,7 @@ hexo: 3.6.0
 命令行执行hexo g，生成静态文件
 命令行执行hexo s，创建本地服务进行调试，[http://localhost:4000/](http://localhost:4000/)就能进行访问
 
-##### 4.关联github
+### 4.关联github
 
 若没有配置好github的ssh key，则需进行以下
 
@@ -97,7 +97,7 @@ hexo d -g
 # 最后访问http://你的用户名.github.io，就可以看到部署好的博客了。
 ```
 
-##### 5.配置主题
+### 5.配置主题
 
 进入blog/themes，命令行运行
 
@@ -132,7 +132,7 @@ jsonContent:
     tags: true
 ```
 
-##### 6.[图片配置](https://blog.csdn.net/u010828718/article/details/55505631)
+### 6.[图片配置](https://blog.csdn.net/u010828718/article/details/55505631)
 
 blog文件夹下下载插件
 ```
@@ -146,7 +146,7 @@ post_asset_folder: true
 
 新增一篇文章，就会新建一个文件名为文章名的文件夹，可以放入这篇文章使用到的图片。
 
-##### 7.[配置网站图标](https://blog.csdn.net/ganzhilin520/article/details/79048034)
+### 7.[配置网站图标](https://blog.csdn.net/ganzhilin520/article/details/79048034)
 
 把图标文件放在当前主题文件夹(hexo-theme-yilia)/source/img
 
