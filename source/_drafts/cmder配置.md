@@ -10,6 +10,8 @@ tags: cmder
   变量值：cmder的绝对路径(G:\cmder)
 * 系统path环境变量添加值：%CMDER_HOME%
 
+<!-- more -->
+
 ### 添加到右键菜单
 
 > 需管理员权限的cmd
