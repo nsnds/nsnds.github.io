@@ -1,7 +1,9 @@
 ---
 title: cmder配置
 tags: cmder
+date: 2018-09-07 23:13:41
 ---
+
 
 ### 配置环境变量
 
@@ -38,15 +40,16 @@ tags: cmder
 如下图：
 > ![](2018-6-2-03.png)
 
-* 2：搜索视窗出现过的关键字
-
-* 3：
-
 ### 常用功能
 
 ![](2018-6-2-04.png)
 
-
+* 2: 可在视窗内搜寻画面上出现过的任意关键字。
+* 3: 新增页签按钮。
+* 4 切换页签按钮。
+* 5: 锁定视窗，让视窗无法再输入。
+* 6: 切换视窗是否提供卷轴功能，启动时可查询之前显示过的内容。
+* 7: 按下滑鼠左键可开启系统选单，滑鼠右键可开启工具选项视窗。 Win+Alt+P ：开启工具选项视窗。
 
 
 ### 常用快捷键
@@ -65,25 +68,4 @@ tags: cmder
 
 ## 参考文章
 
-![https://segmentfault.com/a/1190000011361877#articleHeader5](https://segmentfault.com/a/1190000011361877#articleHeader5)
-
-![汉化sublime](https://blog.csdn.net/heyangyi_19940703/article/details/51869502)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* [https://segmentfault.com/a/1190000011361877#articleHeader5](https://segmentfault.com/a/1190000011361877#articleHeader5)

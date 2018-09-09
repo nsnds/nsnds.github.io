@@ -43,11 +43,11 @@ git config --global user.name "你的用户名"
 
 git config --global user.eamil "你的邮箱"
 
-# 进入.shh文件夹
-cd ~/.ssh
-
 # 生成id_rsa.pub
 ssh-keygen -t rsa -C "你的邮箱"
+
+# 进入.shh文件夹
+cd ~/.ssh
 ```
 
 然后在github上添加ssh
