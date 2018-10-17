@@ -130,6 +130,96 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-vue-cli的rem配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/17/vue-cli的rem配置/">vue-cli的rem配置</a>
+    </h1>
+  
+
+        
+        <a href="/2018/10/17/vue-cli的rem配置/" class="archive-article-date">
+  	<time datetime="2018-10-17T14:35:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="实现目标"><a href="#实现目标" class="headerlink" title="实现目标"></a>实现目标</h3><ul>
+<li>mint-ui的css文件转换成rem</li>
+<li>src目录下样式文件转换成rem</li>
+<li>.vue文件style标签内转换成rem</li>
+</ul>
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><p>cnpm i px2rem-loader -D</p>
+<h3 id="修改build-utils-js"><a href="#修改build-utils-js" class="headerlink" title="修改build/utils.js"></a>修改build/utils.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">exports.cssLoaders = <span class="function"><span class="keyword">function</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">// 添加px2remLoader</span></span><br><span class="line">  <span class="keyword">const</span> px2remLoader = &#123;</span><br><span class="line">    loader: <span class="string">'px2rem-loader'</span>,</span><br><span class="line">    options: &#123; <span class="attr">remUnit</span>: <span class="number">20</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">generateLoaders</span> (<span class="params">loader, loaderOptions</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 添加px2remLoader</span></span><br><span class="line">    <span class="keyword">const</span> loaders = options.usePostCSS ? [cssLoader, px2remLoader, postcssLoader] : [cssLoader]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (loader) &#123;</span><br><span class="line">      loaders.push(&#123;</span><br><span class="line">        loader: loader + <span class="string">'-loader'</span>,</span><br><span class="line">        options: <span class="built_in">Object</span>.assign(&#123;&#125;, loaderOptions, &#123;</span><br><span class="line">          sourceMap: options.sourceMap</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (options.extract) &#123;</span><br><span class="line">      <span class="keyword">return</span> ExtractTextPlugin.extract(&#123;</span><br><span class="line">        use: loaders,</span><br><span class="line">        fallback: <span class="string">'vue-style-loader'</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> [<span class="string">'vue-style-loader'</span>].concat(loaders)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="修改build-vue-loader-conf-js"><a href="#修改build-vue-loader-conf-js" class="headerlink" title="修改build/vue-loader.conf.js"></a>修改build/vue-loader.conf.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  loaders: utils.cssLoaders(&#123;</span><br><span class="line">    sourceMap: sourceMapEnabled,</span><br><span class="line">    extract: isProduction,</span><br><span class="line">    usePostCSS: <span class="literal">true</span> <span class="comment">// .vue文件px值转换rem</span></span><br><span class="line">  &#125;)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修改src-mian-js"><a href="#修改src-mian-js" class="headerlink" title="修改src/mian.js"></a>修改src/mian.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">// 初始化rem</span></span><br><span class="line">  mounted () &#123;</span><br><span class="line">    <span class="keyword">const</span> docEl = <span class="built_in">document</span>.documentElement</span><br><span class="line">    <span class="keyword">const</span> resizeEvt = <span class="string">'orientationchange'</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">'orientationchange'</span> : <span class="string">'resize'</span></span><br><span class="line">    <span class="keyword">const</span> recalc = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> clientWidth = docEl.clientWidth</span><br><span class="line">      <span class="keyword">if</span> (!clientWidth) <span class="keyword">return</span></span><br><span class="line">      <span class="keyword">if</span> (clientWidth &gt; <span class="number">540</span>) &#123;</span><br><span class="line">        docEl.style.fontSize = <span class="string">'28.8px'</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">      &#125;</span><br><span class="line">      docEl.style.fontSize = <span class="number">20</span> * (clientWidth / <span class="number">375</span>) + <span class="string">'px'</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.addEventListener) <span class="keyword">return</span></span><br><span class="line">    <span class="built_in">window</span>.addEventListener(resizeEvt, recalc, <span class="literal">false</span>)</span><br><span class="line">    <span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, recalc, <span class="literal">false</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">vue-cli</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rem</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">px2rem-loader</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/10/17/vue-cli的rem配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-vue全局mixin、filter" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -322,7 +412,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"draw_white_space"</span>: <span class="string">"all"</span> <span class="comment">// 显示空格</span></span><br><span class="line"><span class="string">"font_size"</span>: <span class="number">13</span> <span class="comment">// 字体大小</span></span><br><span class="line"><span class="string">"tab_size"</span>: <span class="number">2</span>, <span class="comment">// tab大小</span></span><br><span class="line"><span class="string">"translate_tabs_to_spaces"</span>: <span class="literal">true</span> <span class="comment">// tab转换为空格</span></span><br></pre></td></tr></table></figure>
+        <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"draw_white_space"</span>: <span class="string">"all"</span> <span class="comment">// 显示空格</span></span><br><span class="line"><span class="string">"font_size"</span>: <span class="number">13</span> <span class="comment">// 字体大小</span></span><br><span class="line"><span class="string">"tab_size"</span>: <span class="number">2</span>, <span class="comment">// tab大小</span></span><br><span class="line"><span class="string">"translate_tabs_to_spaces"</span>: <span class="literal">true</span>, <span class="comment">// tab转换为空格</span></span><br><span class="line"><span class="string">"folder_exclude_patterns"</span>: [</span><br><span class="line">  <span class="string">"node_modules"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
       
 
@@ -859,96 +949,6 @@
 
 
   
-    <article id="post-vue生命周期钩子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/vue生命周期钩子/">vue生命周期钩子</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/07/vue生命周期钩子/" class="archive-article-date">
-  	<time datetime="2018-07-07T15:47:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="有哪些钩子？"><a href="#有哪些钩子？" class="headerlink" title="有哪些钩子？"></a>有哪些钩子？</h3><ol>
-<li>beforeCreate</li>
-<li>created</li>
-<li>beforeMount</li>
-<li>mounted</li>
-<li>beforeUpdate</li>
-<li>updated</li>
-<li>activated</li>
-<li>deactivated</li>
-<li>beforeDestroy</li>
-<li>destroyed</li>
-<li>errorCaptured</li>
-</ol>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">生命周期</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/vue生命周期钩子/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1038,11 +1038,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
+                <a href="javascript:void(0)" class="js-tag color1">element-ui</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">el-scrollbar</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Event Loop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1062,10 +1074,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Event Loop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cmder</a>
               </li>
              
@@ -1075,6 +1083,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">vue-cli</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">px2rem-loader</a>
               </li>
              
               <li class="article-tag-list-item">
