@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>vue-cli的rem配置 | nsnds的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="实现目标 mint-ui的css文件转换成rem src目录下样式文件转换成rem .vue文件style标签内转换成rem  安装依赖cnpm i px2rem-loader -D 修改build/utils.js12345678910111213141516171819202122232425262728293031323334...exports.cssLoaders = function">
+  <meta name="description" content="实现目标 mint-ui的css文件转换成rem src目录下样式文件转换成rem .vue文件style标签内转换成rem">
 <meta name="keywords" content="vue-cli,rem,px2rem-loader">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue-cli的rem配置">
 <meta property="og:url" content="http://yoursite.com/2018/10/17/vue-cli的rem配置/index.html">
 <meta property="og:site_name" content="nsnds的博客">
-<meta property="og:description" content="实现目标 mint-ui的css文件转换成rem src目录下样式文件转换成rem .vue文件style标签内转换成rem  安装依赖cnpm i px2rem-loader -D 修改build/utils.js12345678910111213141516171819202122232425262728293031323334...exports.cssLoaders = function">
+<meta property="og:description" content="实现目标 mint-ui的css文件转换成rem src目录下样式文件转换成rem .vue文件style标签内转换成rem">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-17T15:51:54.084Z">
+<meta property="og:updated_time" content="2018-10-17T15:54:21.781Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-cli的rem配置">
-<meta name="twitter:description" content="实现目标 mint-ui的css文件转换成rem src目录下样式文件转换成rem .vue文件style标签内转换成rem  安装依赖cnpm i px2rem-loader -D 修改build/utils.js12345678910111213141516171819202122232425262728293031323334...exports.cssLoaders = function">
+<meta name="twitter:description" content="实现目标 mint-ui的css文件转换成rem src目录下样式文件转换成rem .vue文件style标签内转换成rem">
   
     <link rel="alternative" href="/atom.xml" title="nsnds的博客" type="application/atom+xml">
   
@@ -158,6 +158,7 @@
 <li>src目录下样式文件转换成rem</li>
 <li>.vue文件style标签内转换成rem</li>
 </ul>
+<a id="more"></a>
 <h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><p>cnpm i px2rem-loader -D</p>
 <h3 id="修改build-utils-js"><a href="#修改build-utils-js" class="headerlink" title="修改build/utils.js"></a>修改build/utils.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">exports.cssLoaders = <span class="function"><span class="keyword">function</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">// 添加px2remLoader</span></span><br><span class="line">  <span class="keyword">const</span> px2remLoader = &#123;</span><br><span class="line">    loader: <span class="string">'px2rem-loader'</span>,</span><br><span class="line">    options: &#123; <span class="attr">remUnit</span>: <span class="number">20</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">generateLoaders</span> (<span class="params">loader, loaderOptions</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 添加px2remLoader</span></span><br><span class="line">    <span class="keyword">const</span> loaders = options.usePostCSS ? [cssLoader, px2remLoader, postcssLoader] : [cssLoader]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (loader) &#123;</span><br><span class="line">      loaders.push(&#123;</span><br><span class="line">        loader: loader + <span class="string">'-loader'</span>,</span><br><span class="line">        options: <span class="built_in">Object</span>.assign(&#123;&#125;, loaderOptions, &#123;</span><br><span class="line">          sourceMap: options.sourceMap</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (options.extract) &#123;</span><br><span class="line">      <span class="keyword">return</span> ExtractTextPlugin.extract(&#123;</span><br><span class="line">        use: loaders,</span><br><span class="line">        fallback: <span class="string">'vue-style-loader'</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> [<span class="string">'vue-style-loader'</span>].concat(loaders)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <h3 id="修改build-vue-loader-conf-js"><a href="#修改build-vue-loader-conf-js" class="headerlink" title="修改build/vue-loader.conf.js"></a>修改build/vue-loader.conf.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  loaders: utils.cssLoaders(&#123;</span><br><span class="line">    sourceMap: sourceMapEnabled,</span><br><span class="line">    extract: isProduction,</span><br><span class="line">    usePostCSS: <span class="literal">true</span> <span class="comment">// .vue文件px值转换rem</span></span><br><span class="line">  &#125;)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -407,11 +408,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">js</a>
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
+                <a href="javascript:void(0)" class="js-tag color3">js</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -479,6 +480,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">utils</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">原型</a>
               </li>
              
@@ -488,10 +493,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">继承</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">utils</a>
               </li>
              
               <li class="article-tag-list-item">
