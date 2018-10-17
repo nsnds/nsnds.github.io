@@ -12,6 +12,8 @@ tags:
 * src目录下样式文件转换成rem
 * .vue文件style标签内转换成rem
 
+<!-- more -->
+
 ### 安装依赖
 cnpm i px2rem-loader -D
 
